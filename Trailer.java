@@ -31,11 +31,11 @@ public class Trailer implements Car{
     }
     @Override
     public void setId(int id) {
-
+        this.id = id;
     }
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
     public void setPrice(int price){
         this.price = price;
