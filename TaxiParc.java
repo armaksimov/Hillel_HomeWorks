@@ -17,15 +17,15 @@ public class TaxiParc implements TaxiPark {
 
     @Override
     public void setCarsList(Car[] carsList) {
-
+        this.carsList = carsList;
     }
     @Override
     public Car[] getCarsList() {
-        return this.carsList;
+        return carsList;
     }
     @Override
     public void setPrice(int price) {
-
+        this.price = price;
     }
     @Override
     public int getPrice() {
@@ -33,7 +33,7 @@ public class TaxiParc implements TaxiPark {
     }
     @Override
     public void setCity(String city) {
-
+        this.city = city;
     }
     @Override
     public String getCity() {
@@ -41,7 +41,7 @@ public class TaxiParc implements TaxiPark {
     }
     @Override
     public void setStaffQuantity(int staffQuantity) {
-
+        this.stuffQuantity = staffQuantity;
     }
     @Override
     public int gerStaffQuantity() {
