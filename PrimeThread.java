@@ -3,8 +3,8 @@ package MultiThreadPrimeNumsFinder;
 import java.util.Scanner;
 
 public class PrimeThread extends Thread{
-    static long nextNumber=3;
-    public static int count=0;
+    static long nextNumber = 3;
+    public static int count = 0;
     public static int counter;
     public static long[] primes = new long[100000];
     
@@ -24,7 +24,7 @@ public class PrimeThread extends Thread{
     
     public static synchronized long getNextNumber() {
         long n = nextNumber;
-        nextNumber +=2;
+        nextNumber += 2;
         return n;
     }
 
