@@ -1,0 +1,3 @@
+BMW,118i,12,250,15000,Hatchback; 
+Audi,Q8,15,240,14000,Hatchback; 
+Dodge,Grand Caravan,17,220,10000,Universal; 
