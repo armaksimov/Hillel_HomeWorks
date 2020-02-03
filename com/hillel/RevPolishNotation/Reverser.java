@@ -28,7 +28,6 @@ public class Reverser {
         for (int i = 0; i < numOfOperators; i++) {
             stack.push(operands[innerC].toString());
             innerC++;
-            System.out.print(stack);
             switch (operators[i]){
                 case ("+"):{
                     res += Integer.parseInt(stack.peek());
