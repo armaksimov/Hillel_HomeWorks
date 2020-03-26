@@ -5,6 +5,7 @@ import com.hillel.databases.films.Films;
 import com.hillel.databases.humans.Actor;
 import com.hillel.databases.humans.filmDirector;
 
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.util.*;
@@ -13,15 +14,8 @@ public class filmLib {
     DBrequest req = new DBrequest();
 
 
-    public List<Films> getNewFilms(Integer currentYear) throws ParseException {
-        List<Films> films = req.getFilmsAndActors();
-        List<Films> newFilms = new ArrayList<Films>();
-        for (int i = 0; i < films.size(); i++) {
-            if(films.get(i).getReleaseDate().getYear() == currentYear - 1 || films.get(i).getReleaseDate().getYear() == currentYear) {
-                newFilms.add(films.get(i));
-            }
-        }
-        return newFilms;
+    public List<Films> getNewFilms(int year) throws ParseException, SQLException {
+        return req.getFilmsByYear(2020);
     }
 
     public List<Actor> infoOnActors(Films film) {
@@ -39,27 +33,11 @@ public class filmLib {
         return bigActor;
     }
 
-    public List<Actor> actor_filmdirector(){
-        List<Actor> actorFilmDirector = new ArrayList<Actor>();
-        List<Actor> actors = req.getActors();
-        List<filmDirector> directors = req.getFilmDirectorList();
-        for (int i = 0; i < actors.size(); i++)
-            for (int j = 0; j < directors.size(); j++) {
-                if(actors.get(i).getName().equals(directors.get(j).getName())){
-                    actorFilmDirector.add(actors.get(i));
-                }
-            }
-        return actorFilmDirector;
+    public List<Actor> actor_filmdirector() throws SQLException {
+        return req.actorsFilmDir();
     }
 
-    public List<Films> getOldFilms(Integer neededYear) throws ParseException {
-        List<Films> films = req.getFilmsAndActors();
-        List<Films> oldFilms = new ArrayList<Films>();
-        for (int i = 0; i < films.size(); i++) {
-            if(films.get(i).getReleaseDate().getYear() <= neededYear) {
-                oldFilms.add(films.get(i));
-            }
-        }
-        return oldFilms;
+    public List<Films> getOldFilms(Integer neededYear) throws ParseException, SQLException {
+        return req.getFilmsByYear(neededYear);
     }
 }
