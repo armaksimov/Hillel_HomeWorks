@@ -30,8 +30,7 @@ public class DBrequest {
                     ResultSet rs = statement.executeQuery("SELECT * FROM videobase.relations_film_actor RIGHT JOIN " + "videobase.actors ON relations_film_actor.actor_id = actors.id WHERE film_id = " + film.getId() + ";");
                     List<Actor> actors = new ArrayList<Actor>();
                     while (rs.next()) {
-                        actors.add(new Actor(rs.getInt("id"), rs.getString("name"),
-                                rs.getDate("birth")));
+                        actors.add(new Actor(rs.getInt("id"), rs.getString("fullname"), rs.getDate("birthdate")));
                     }
                     film.setActors(actors);
                     film.setFilmDirectors(new filmDirector(0, resultSet.getString("filmdirector"), null));
@@ -46,6 +45,38 @@ public class DBrequest {
             e.printStackTrace();
         }
         return films;
+    }
+
+    public List<Films> getFilmsByYear(Integer year) throws ParseException, SQLException {
+        List<Films> newFilms = new ArrayList<Films>();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM videobase.films WHERE films.releasedate >= 01-01-" + year + ";");
+        while (resultSet.next()){
+            Films film = new Films();
+            film.setId(resultSet.getInt("id"));
+            film.setName(resultSet.getString("film_name"));
+            ResultSet rs = statement.executeQuery("SELECT * FROM videobase.relations_film_actor RIGHT JOIN " + "videobase.actors ON relations_film_actor.actor_id = actors.id WHERE film_id = " + film.getId() + ";");
+            List<Actor> actors = new ArrayList<Actor>();
+            while (rs.next()) {
+                actors.add(new Actor(rs.getInt("id"), rs.getString("fullname"), rs.getDate("birthdate")));
+            }
+            film.setActors(actors);
+            film.setFilmDirectors(new filmDirector(0, resultSet.getString("filmdirector"), null));
+            film.setReleaseDate(resultSet.getDate("releasedate"));
+            film.setOriginCountry(resultSet.getString("origin"));
+            newFilms.add(film);
+            film = null;
+        }
+
+        return newFilms;
+    }
+
+    public List<Actor> actorsFilmDir() throws SQLException {
+        List actor_FilmDir = new ArrayList<Actor>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM videobase.actors WHERE actors.fullname = director.fullname");
+        while(rs.next()){
+            actorList.add(new Actor(rs.getInt("id"), rs.getString("fullname"), rs.getDate("birthdate")));
+        }
+        return actor_FilmDir;
     }
 
     public List<Actor> getActors() {
